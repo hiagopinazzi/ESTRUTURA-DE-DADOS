@@ -1,0 +1,139 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+//função bubblesort
+void bubble_sort (int vetor1[], int n) {
+    int i, contador, aux;
+
+    for (contador = 1; contador < n; contador++) {
+   for (i = 0; i < n - 1; i++) {
+     if (vetor1[i] > vetor1[i + 1]) {
+       aux = vetor1[i];
+       vetor1[i] = vetor1[i + 1];
+       vetor1[i + 1] = aux;
+     }
+   }
+ }
+printf("Elementos do array ordenado bubblesort\n");
+for (i = 0; i < n; i++) {
+ printf("%d ", vetor1[i]);
+}
+printf("\n");
+}
+
+
+//função selectionsort
+void selection_sort (int vetor1[],int n) {
+  int i, j, min, aux;
+  
+  for (i = 0; i < (n - 1); i++) {
+    /* O minimo é o primeiro número não ordenado ainda */
+    min = i;
+    for (j = i+1; j < n; j++) {
+      /* Caso tenha algum numero menor ele faz a troca do minimo*/
+      if (vetor1[j] < vetor1[min]) {
+   min = j;
+      }
+    }
+    /* Se o minimo for diferente do primeiro numero não ordenado ele faz a troca para ordena-los*/
+    if (i != min) {
+      aux = vetor1[i];
+      vetor1[i] = vetor1[min];
+      vetor1[min] = aux;
+    }
+  }
+  /* Imprime o vetor ordenado */
+  printf("\nElementos do array ordenado selectionsort\n");
+  for (i = 0; i < n; i++) {
+    printf ("%d ",vetor1[i]);
+  }
+  printf ("\n");
+}
+
+
+//insertionsort
+ void insertsort(int vetor1[], int n){
+    int i,elemento;
+    for(i = 1; i < n; i++){
+        int elemento = vetor1[i];
+        int j = i - 1;
+        while(j >= 0 && vetor1[j] > elemento){
+ vetor1[j + 1] = vetor1[j];  
+            j = j - 1;
+        }
+ vetor1[j + 1] = elemento; 
+    }
+    printf("\nElementos do array ordenado insertsort\n");
+     for(i = 0; i < 6; i++){
+       printf("%d ",vetor1[i]);
+    }
+}
+
+//função quicksort
+void quick(int vetor1[6], int inicio, int fim){
+   
+   int pivo, aux, i, j, meio;
+   i = inicio;
+   j = fim;
+   
+   meio = (int) ((i + j) / 2);
+   pivo = vetor1[meio];
+   do{
+      while (vetor1[i] < pivo) i = i + 1;
+      while (vetor1[j] > pivo) j = j - 1;
+      
+      if(i <= j){
+         aux = vetor1[i];
+         vetor1[i] = vetor1[j];
+         vetor1[j] = aux;
+         i = i + 1;
+         j = j - 1;
+      }
+   }while(j > i);
+   
+   if(inicio < j) quick(vetor1, inicio, j);
+   if(i < fim) quick(vetor1, i, fim); 
+    
+}
+int main() 
+{
+    int i,op;
+    int vetor1[6];
+    srand(time(NULL));
+    for(i = 0; i < 6; i++)
+    {
+    vetor1[i] = rand()%100+1;
+    }
+    printf("VETOR PREENCHIDO ALEATORIAMENTE\n");
+    for(i = 0; i < 6; i++)
+    {
+    printf("%i\n",vetor1[i]);
+    }
+    printf("escolha uma opcao\n");
+    printf("1-bubble\n");
+    printf("2-selection\n");
+    printf("3-insert\n");
+    printf("4-quick\n");
+    scanf("%i",&op);
+    if(op==1)
+    {
+      bubble_sort(vetor1,6);
+    }
+    else if(op==2)
+    {
+       selection_sort(vetor1,6);
+    }
+    else if(op==3)
+    {
+      insertsort(vetor1,6);
+    }
+    else if(op==4)
+    {
+      quick(vetor1,0, 6);
+      for(i = 0; i < 6; i++)
+      {
+      printf("%d ", vetor1[i]);
+      } 
+    }
+    return 0;
+}
